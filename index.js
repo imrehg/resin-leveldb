@@ -1,16 +1,25 @@
-var leveldown = require('leveldown');
-var sleep = require('sleep');
+var sleep = require('sleep')
+var Moniker = require('moniker')
 
-var db  = leveldown('/tmp/leveldown.db');
+var level = require('levelup')
 
-console.log(db);
+var db = level('./mydb');
 
-var log = function(err) {
-  console.log(err);
+var i = 0
+
+var newName = function() {
+  var varname = 'name-'+i
+  i++
+  db.put(varname, Moniker.choose(), function (err) {
+    if (err) return console.log('Ooops!', err) // some kind of I/O error
+
+    db.get(varname, function (err, value) {
+      if (err) return console.log('Ooops!', err) // likely the key was not found
+      console.log(varname + '=' + value)
+    })
+  })
+
 }
 
-db.put("hello","there", log);
-
-while (1) {
-  sleep.sleep(5);
-}
+newName()
+var naming = setInterval(newName, 3*1000)
