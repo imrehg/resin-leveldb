@@ -2,7 +2,8 @@
 # see more about dockerfile templates here: http://docs.resin.io/deployment/docker-templates/
 # and about resin base images here: http://docs.resin.io/runtime/resin-base-images/
 # Note the node:slim image doesn't have node-gyp
-FROM orbitbox/orbit-os-node
+FROM resin/raspberrypi3-node:6
+#FROM orbitbox/orbit-os-node
 
 # use apt-get if you need to install dependencies,
 # for instance if you need ALSA sound utils, just uncomment the lines below.

@@ -5,7 +5,11 @@ var db  = leveldown('/tmp/leveldown.db');
 
 console.log(db);
 
-db.put("hello","there", function(err) { console.log(err) });
+var log = function(err) {
+  console.log(err);
+}
+
+db.put("hello","there", log);
 
 while (1) {
   sleep.sleep(5);
